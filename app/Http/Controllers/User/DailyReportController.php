@@ -74,7 +74,9 @@ class DailyReportController extends Controller
      */
     public function edit($id)
     {
-        //
+       $daily = $this->daily->find($id);
+       return view('user.daily_report.edit',compact('daily'));
+
     }
 
     /**
@@ -86,7 +88,9 @@ class DailyReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       $daily = $request->all();
+       $this->daily->find($id)->fill($daily)->save();
+       return redirect()->route('dailyreport.index');
     }
 
     /**

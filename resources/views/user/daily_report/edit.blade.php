@@ -4,23 +4,23 @@
 <h1 class="brand-header">日報編集</h1>
 <div class="main-wrap">
   <div class="container">
-  <form　action="{{ route('dailyreport.update',$daily->id) }}" method="PUT">
-      <input class="form-control" name="user_id" type="hidden" value="{{ Auth::id() }}">
+  {!! Form::open(['route'=>['dailyreport.update',$daily->id],'method'=>'PUT']) !!}
+  {!! Form::input('hidden', 'user_id', Auth::id(), ['class' => 'form-control']) !!}
       <div class="form-group form-size-small">
-        <input class="form-control" name="reporting_time" type="date">
+      {!! Form::input('date', 'reporting_time', Carbon::now()->format('Y-m-d'), ['class' => 'form-control']) !!}
         <!-- 日付入れられない -->
       <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <input class="form-control" placeholder="Title" name="title" type="text" value="{{ $daily->title }}">
+      {!! Form::input('text', 'title', $daily->title, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
       <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <textarea class="form-control" placeholder="本文" name="contents" cols="50" rows="10" >{{ $daily->content }}</textarea>
+      {!! Form::textarea('content', $daily->content, ['class' => 'form-control', 'placeholder' => '本文']) !!}
       <span class="help-block"></span>
       </div>
       <button type="submit" class="btn btn-success pull-right">Update</button>
-  </form>
+  {!! Form::close() !!}
   </div>
 </div>
 
