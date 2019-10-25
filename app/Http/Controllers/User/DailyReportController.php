@@ -25,9 +25,8 @@ class DailyReportController extends Controller
      */
     public function index(Request $request)
     {
-        $userId = Auth::id();
-        $inputs = $request->all();
-        return view('user.daily_report.index',compact('inputs'));
+        $dailies = $this->daily->all();
+        return view('user.daily_report.index',compact('dailies'));
     }
 
     /**
@@ -48,7 +47,10 @@ class DailyReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $input = $request->all();
+       $input['user_id'] = Auth::id();
+       $this->daily->fill($input)->save();
+       return redirect()->route('dailyreport.index');
     }
 
     /**
