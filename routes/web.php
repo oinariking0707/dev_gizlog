@@ -11,6 +11,8 @@
 |
  */
 
+
+
 Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Auth::routes();
 
@@ -21,6 +23,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
             return view('user.auth.login');
         }
     });
+    
+    Route::resource('dailyreport', 'DailyReportController');
 
     Route::get('slack/login', 'Auth\AuthenticateController@callSlackApi');
     Route::get('callback', 'Auth\AuthenticateController@loginBySlackUserInfo');
