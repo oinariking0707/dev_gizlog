@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class DailyReportController extends Controller
 {
-    private $daily;
+    private $report;
 
-    public function __construct(DailyReport $instanceClass)
+    public function __construct(DailyReport $dailyReport)
     {
         $this->middleware('auth');
-        $this->daily = $instanceClass;
+        $this->report = $dailyReport;
     }
 
     /**
      * Display a listing of the resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -28,12 +28,11 @@ class DailyReportController extends Controller
         $month = $request->all(); 
 
         if(empty($month)){
-            $dailies = $this->daily->all();
+            $reports = $this->report->where('user_id', Auth::id())->get();
         } else {
-            $dailies = $this->daily->where('user_id', '1')->where('reporting_time', 'like', '%'. $month['search-month']. '%')->get();
+            $reports = $this->report->where('user_id', Auth::id())->where('reporting_time', 'like', '%'. $month['search-month']. '%')->get();
         }
-
-        return view('user.daily_report.index', compact('dailies', 'month'));
+        return view('user.daily_report.index', compact('reports', 'month'));
     }
 
     /**
@@ -54,9 +53,9 @@ class DailyReportController extends Controller
      */
     public function store(DailyReportRequest $request)
     {
-       $daily = $request->all();
-       $daily['user_id'] = Auth::id();
-       $this->daily->fill($daily)->save();
+       $report = $request->all();
+       $report['user_id'] = Auth::id();
+       $this->report->fill($report)->save();
        return redirect()->route('dailyreport.index');
     }
 
@@ -68,8 +67,8 @@ class DailyReportController extends Controller
      */
     public function show($id)
     {
-        $daily = $this->daily->find($id);
-        return view('user.daily_report.show', compact('daily'));
+        $report = $this->report->find($id);
+        return view('user.daily_report.show', compact('report'));
     }
 
     /**
@@ -80,8 +79,8 @@ class DailyReportController extends Controller
      */
     public function edit($id)
     {
-       $daily = $this->daily->find($id);
-       return view('user.daily_report.edit', compact('daily'));
+       $report = $this->report->find($id);
+       return view('user.daily_report.edit', compact('report'));
 
     }
 
@@ -94,8 +93,8 @@ class DailyReportController extends Controller
      */
     public function update(DailyReportRequest $request, $id)
     {
-       $daily = $request->all();
-       $this->daily->find($id)->fill($daily)->save();
+       $report = $request->all();
+       $this->report->find($id)->fill($report)->save();
        return redirect()->route('dailyreport.index');
     }
 
@@ -107,7 +106,7 @@ class DailyReportController extends Controller
      */
     public function destroy($id)
     {
-        $this->daily->find($id)->delete();
+        $this->report->find($id)->delete();
         return redirect()->route('dailyreport.index');
     }
 }

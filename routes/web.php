@@ -11,8 +11,6 @@
 |
  */
 
-
-
 Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Auth::routes();
 
