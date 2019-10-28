@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class DailyReportController extends Controller
 {
-
     private $daily;
 
     public function __construct(DailyReport $instanceClass)
@@ -18,6 +17,7 @@ class DailyReportController extends Controller
         $this->middleware('auth');
         $this->daily = $instanceClass;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,10 +25,15 @@ class DailyReportController extends Controller
      */
     public function index(Request $request)
     {
-        $userId = Auth::id();
-        $dailies = $this->daily->all();
-        
-        return view('user.daily_report.index',compact('dailies'));
+        $month = $request->all(); 
+
+        if(empty($month)){
+            $dailies = $this->daily->all();
+        } else {
+            $dailies = $this->daily->where('user_id', '1')->where('reporting_time', 'like', '%'. $month['search-month']. '%')->get();
+        }
+
+        return view('user.daily_report.index', compact('dailies', 'month'));
     }
 
     /**
@@ -64,7 +69,7 @@ class DailyReportController extends Controller
     public function show($id)
     {
         $daily = $this->daily->find($id);
-        return view('user.daily_report.show',compact('daily'));
+        return view('user.daily_report.show', compact('daily'));
     }
 
     /**
@@ -76,7 +81,7 @@ class DailyReportController extends Controller
     public function edit($id)
     {
        $daily = $this->daily->find($id);
-       return view('user.daily_report.edit',compact('daily'));
+       return view('user.daily_report.edit', compact('daily'));
 
     }
 

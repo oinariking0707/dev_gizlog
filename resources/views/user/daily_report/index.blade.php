@@ -4,10 +4,10 @@
 <h2 class="brand-header">日報一覧</h2>
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
-  {!! Form::open(['route'=>'dailyreport.index','method'=>'GET']) !!}
-      {!! Form::input('month','search-month',null,['class'=>'form-control']) !!}
+    {!! Form::open(['route'=>'dailyreport.index','method'=>'GET']) !!}
+      {!! Form::input('month','search-month',empty($month['search-month']) ? null : $month['search-month'],['class'=>'form-control']) !!}
       <button type="submit" class="btn btn-icon"><i class="fa fa-search"></i></button>
-      {!! Form::close() !!}
+    {!! Form::close() !!}
     <a class="btn btn-icon" href="{{ route('dailyreport.create') }}"><i class="fa fa-plus"></i></a>
   </div>
   <div class="content-wrapper table-responsive">
@@ -22,13 +22,13 @@
       </thead>
       <tbody>
       @foreach($dailies as $daily)
-          <tr class="row">
-            <td class="col-xs-2">{{ ($daily->reporting_time->format('m/d (D)')) }}</td>
-            <td class="col-xs-3">{{ ($daily->title) }}</td>
-            <td class="col-xs-5">{{ ($daily->content) }}</td>
-            <td class="col-xs-2"><a class="btn" href=" dailyreport/{{ $daily->id}} "><i class="fa fa-book"></i></a></td>
-          </tr>
-          @endforeach
+        <tr class="row">
+          <td class="col-xs-2">{{ ($daily->reporting_time->format('m/d (D)')) }}</td>
+          <td class="col-xs-3">{{ ($daily->title) }}</td>
+          <td class="col-xs-5">{{ ($daily->content) }}</td>
+          <td class="col-xs-2"><a class="btn" href=" dailyreport/{{ $daily->id}} "><i class="fa fa-book"></i></a></td>
+        </tr>
+      @endforeach
       </tbody>
     </table>
   </div>

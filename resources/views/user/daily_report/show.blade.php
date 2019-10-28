@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-    {{ $daily->reporting_time->format('Y/m/d (D)') }}の日報
+      {{ $daily->reporting_time->format('Y/m/d (D)') }}の日報
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
@@ -27,7 +27,7 @@
     <div class="btn-delete">
       {!! Form::open(['route'=>['dailyreport.destroy',$daily->id],'method'=>'DELETE']) !!}
         <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i></button>
-        {!! Form::close() !!}
+      {!! Form::close() !!}
     </div>
   </div>
 </div>
