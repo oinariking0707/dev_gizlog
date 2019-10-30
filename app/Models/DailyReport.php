@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User; 
 
 class DailyReport extends Model
 {
@@ -14,7 +13,6 @@ class DailyReport extends Model
         'reporting_time',
         'title',
         'content',
-        
     ];
 
     protected $dates = [
@@ -23,9 +21,4 @@ class DailyReport extends Model
         'updated_at',
         'deleted_at',
     ];
-    
-    // public function getByUserId($id)
-    // {
-    //     return $this->where('user_id', $id)->get();
-    // }
 }

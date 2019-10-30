@@ -7,6 +7,7 @@ use App\Http\Requests\User\DailyReportRequest;
 use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\User\DailyReportRequestSearchMonth;
 
 class DailyReportController extends Controller
 {
@@ -23,10 +24,9 @@ class DailyReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(DailyReportRequestSearchMonth $request)
     {
         $month = $request->all(); 
-
         if(empty($month)){
             $reports = $this->report->where('user_id', Auth::id())->get();
         } else {
@@ -48,7 +48,7 @@ class DailyReportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\DailyReportRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DailyReportRequest $request)
@@ -87,7 +87,7 @@ class DailyReportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\DailyReportRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
