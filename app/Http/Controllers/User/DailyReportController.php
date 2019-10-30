@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\User\DailyReportRequest;
 use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\User\DailyReportRequestSearchMonth;
+use App\Http\Requests\User\DailyReportSearchMonthRequest;
 
 class DailyReportController extends Controller
 {
@@ -21,18 +20,19 @@ class DailyReportController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param  \Illuminate\Http\DailyReportRequestSearchMonth $request
+     * @param  DailyReportSearchMonthRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function index(DailyReportRequestSearchMonth $request)
+    public function index(DailyReportSearchMonthRequest $request)
     {
-        $month = $request->all(); 
-        if(empty($month)){
-            $reports = $this->report->where('user_id', Auth::id())->get();
+        $user_id = Auth::id();
+        $input = $request->all(); 
+        if(empty($input)){
+            $reports = $this->report->where('user_id', $user_id)->get();
         } else {
-            $reports = $this->report->where('user_id', Auth::id())->where('reporting_time', 'like', '%'. $month['search-month']. '%')->get();
+            $reports = $this->report->where('user_id', $user_id)->where('reporting_time', 'like', '%'. $input['search-month']. '%')->get();
         }
-        return view('user.daily_report.index', compact('reports', 'month'));
+        return view('user.daily_report.index', compact('reports', 'input'));
     }
 
     /**
@@ -48,7 +48,7 @@ class DailyReportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\DailyReportRequest  $request
+     * @param  DailyReportRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DailyReportRequest $request)
@@ -87,7 +87,7 @@ class DailyReportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\DailyReportRequest  $request
+     * @param  DailyReportRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
