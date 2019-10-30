@@ -21,7 +21,7 @@ class DailyReportController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\DailyReportRequestSearchMonth $request
      * @return \Illuminate\Http\Response
      */
     public function index(DailyReportRequestSearchMonth $request)
