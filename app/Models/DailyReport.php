@@ -21,4 +21,17 @@ class DailyReport extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function getAllRecode($id)
+    {
+        return $this->where('user_id',$id)
+                    ->get();
+    }
+
+    public function getMonthRecode($id,$input)
+    {
+        return $this->where('user_id',$id)
+                    ->where('reporting_time', 'like', '%'. $input['search-month']. '%')
+                    ->get();
+    }
 }

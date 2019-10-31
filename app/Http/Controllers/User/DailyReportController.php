@@ -28,9 +28,9 @@ class DailyReportController extends Controller
         $user_id = Auth::id();
         $input = $request->all(); 
         if(empty($input)){
-            $reports = $this->report->where('user_id', $user_id)->get();
+            $reports = $this->report->getAllRecode($user_id);
         } else {
-            $reports = $this->report->where('user_id', $user_id)->where('reporting_time', 'like', '%'. $input['search-month']. '%')->get();
+            $reports = $this->report->getMonthRecode($user_id, $input);
         }
         return view('user.daily_report.index', compact('reports', 'input'));
     }
