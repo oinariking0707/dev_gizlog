@@ -22,6 +22,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
         }
     });
 
+    Route::resource('question', 'QuestionController');
+
     Route::get('slack/login', 'Auth\AuthenticateController@callSlackApi');
     Route::get('callback', 'Auth\AuthenticateController@loginBySlackUserInfo');
 
@@ -41,7 +43,6 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
 
     Route::resource('report', DailyReportController::class);
-
 });
 
 
