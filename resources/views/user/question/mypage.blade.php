@@ -18,24 +18,26 @@
         </tr>
       </thead>
       <tbody>
+      @foreach($questions as $question)
         <tr class="row">
-          <td class="col-xs-2"></td>
-          <td class="col-xs-1"></td>
-          <td class="col-xs-5"></td>
-          <td class="col-xs-2"><span class="point-color"></span></td>
+          <td class="col-xs-2">{{ $question->created_at->format('Y年m月d日') }}</td>
+          <td class="col-xs-1">{{ $question->tag_category_id }}</td>
+          <td class="col-xs-5">{{ $question->title }}</td>
+          <td class="col-xs-2">{{ $question->comment }}<span class="point-color"></span></td>
           <td class="col-xs-1">
-            <a class="btn btn-success" href="">
+            <a class="btn btn-success" href="{{ route('question.show',$question->id) }}">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
           </td>
           <td class="col-xs-1">
-            <form>
+          {!! Form::open(['route'=>['question.destroy',$question->id],'method'=>'DELETE']) !!}
               <button class="btn btn-danger" type="submit">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
-            </form>
+            {!! Form::close() !!}
           </td>
         </tr>
+        @endforeach
       </tbody>
     </table>
   </div>

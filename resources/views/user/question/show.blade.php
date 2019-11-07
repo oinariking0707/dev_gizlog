@@ -6,7 +6,7 @@
   <div class="panel panel-success">
     <div class="panel-heading">
       <img src="" class="avatar-img">
-      <p>&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;&nbsp;)</p>
+      <p>&nbsp;{{ Auth::user()->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;&nbsp;)</p>
       <p class="question-date"></p>
     </div>
     <div class="table-responsive">

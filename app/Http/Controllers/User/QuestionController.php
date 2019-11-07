@@ -4,8 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\User\QuestionsRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Question;
+use App\Models\TagCategory;
 
 class QuestionController extends Controller
 {
@@ -22,11 +25,20 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $questions = $this->question->all();
+        $input = $request->all();
+        // $questions = $this->question->all();
+
+        if(!empty($input)) {
+            $questions = $this->question->getSearchRecode($input);
+        }else{
+            $questions = $this->question->all();
+            // dd($questions);
+        }
+        // $tagcategory = $request->all();
         // dd($questions);
-        return view('user.question.index',compact('questions'));
+        return view('user.question.index', compact('questions'));
     }
 
     /**
@@ -47,7 +59,12 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $question = $request->all();
+        $question['user_id'] = Auth::id();
+        // dd($question);
+        $this->question->fill($question)->save();
+        return redirect()->route('question.index');
+    
     }
 
     /**
@@ -58,7 +75,8 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        //
+       $input = $this->question->find($id);
+       return view('user.question.edit', compact('input'));
     }
 
     /**
@@ -69,19 +87,24 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $questions = $this->question->where('user_id',$id)->get();
+        //  dd($questions);
+        return view('user.question.mypage', compact('questions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param QuestionsRequest  $request
+     * @param  int  $questionId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionsRequest $request, $questionId)
     {
-        //
+        $input = $request->all();
+        // dd($input);
+        $this->question->find($questionId)->fill($input)->save();
+        return redirect()->route('question.index');
     }
 
     /**
@@ -92,6 +115,16 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->question->find($id)->delete();
+        return redirect()->route('question.index');
+    }
+
+    /** 
+    * @param QuestionsRequest  $request
+    */
+    public function confirm(QuestionsRequest $request){
+        $inputs = $request->all();
+       $inputs['user_id'] = Auth::id();
+        return view('user.question.confirm', compact('inputs'));
     }
 }

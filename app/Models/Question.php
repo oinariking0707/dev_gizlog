@@ -8,6 +8,8 @@ use App\Models\User;
 
 class Question extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'user_id',
         'tag_category_id',
@@ -20,5 +22,14 @@ class Question extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function tagcategory(){
+        return $this->belongsTo(TagCategory::class);
+    }
+
+    public function getSearchRecode($input){
+        return $this->where('title', 'like', '%'. $input['search-word']. '%')
+                    ->get();
+    }
 }
 

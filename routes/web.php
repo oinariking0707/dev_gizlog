@@ -22,6 +22,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
         }
     });
 
+    Route::get('question/confirm', 'QuestionController@confirm')->name('question.confirm');
     Route::resource('question', 'QuestionController');
 
     Route::get('slack/login', 'Auth\AuthenticateController@callSlackApi');
