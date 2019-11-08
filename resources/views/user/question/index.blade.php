@@ -43,7 +43,7 @@
           <td class="col-xs-6">{{ $question->title }}</td>
           <td class="col-xs-1">{{ $question->comment }}<span class="point-color"></span></td>
           <td class="col-xs-2">
-            <a class="btn btn-success" href="{{ route('question.edit',Auth::id()) }}">
+            <a class="btn btn-success" href="{{ route('question.showQuestion', $question->id) }}">
               <i class="fa fa-comments-o" aria-hidden="true"></i>
             </a>
           </td>

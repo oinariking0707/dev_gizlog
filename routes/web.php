@@ -22,6 +22,10 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
         }
     });
 
+    Route::get('comment', 'CommentController@index')->name('comment.index');
+    Route::get('comment/create', 'CommentController@create')->name('comment.create');
+
+    Route::get('question/{id}', 'QuestionController@showQuestion')->name('question.showQuestion');
     Route::get('question/confirm', 'QuestionController@confirm')->name('question.confirm');
     Route::resource('question', 'QuestionController');
 

@@ -13,11 +13,14 @@ use App\Models\TagCategory;
 class QuestionController extends Controller
 {
     protected $question;
+    protected $tagcategory;
 
-    public function __construct(Question $question)
+    public function __construct(Question $question, TagCategory $tagcategory)
     {
         $this->middleware('auth');
         $this->question = $question;
+        $this->tagcategory = $tagcategory;
+
     }
 
     /**
@@ -27,18 +30,23 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $input = $request->all();
         // $questions = $this->question->all();
+        // $tagcategories = $this->tagcategory->all();
+        // $input = $request->all();
+        // $getSerachWord = $this->question->getSearchRecode($input);
 
+        // return view('user.question.index', compact(''));
+
+        
+        $input = $request->all();
+        
         if(!empty($input)) {
             $questions = $this->question->getSearchRecode($input);
         }else{
             $questions = $this->question->all();
-            // dd($questions);
         }
-        // $tagcategory = $request->all();
-        // dd($questions);
         return view('user.question.index', compact('questions'));
+        
     }
 
     /**
@@ -126,5 +134,11 @@ class QuestionController extends Controller
         $inputs = $request->all();
        $inputs['user_id'] = Auth::id();
         return view('user.question.confirm', compact('inputs'));
+    }
+
+    public function showQuestion($id){
+        $question = $this->question->find($id);
+        // dd($question);
+        return view('user.question.show', compact('question'));
     }
 }

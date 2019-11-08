@@ -35,7 +35,7 @@
         </div>
     </div>
   <div class="comment-box">
-    <form>
+  {!! Form::open(['route'=>'comment.create', 'method'=>'GET']) !!}
       <input name="user_id" type="hidden" value="">
       <input name="question_id" type="hidden" value="">
       <div class="comment-title">
@@ -50,7 +50,7 @@
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
       </div>
-    </form>
+  {!! Form::close() !!}
   </div>
 </div>
 @endsection
