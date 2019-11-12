@@ -23,12 +23,25 @@ class Question extends Model
         'deleted_at',
     ];
 
-    public function tagcategory(){
-        return $this->belongsTo(TagCategory::class);
+    public function comments(){
+        return $this->hasMany('App\Models\Comment');
     }
 
-    public function getSearchRecode($input){
-        return $this->where('title', 'like', '%'. $input['search-word']. '%')
+    public function tagCategory(){
+        return $this->belongsTo('App\Models\TagCategory');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function getSearchRecode($inputs){
+        return $this->where('title', 'like', '%'. $inputs['search-word']. '%')
+                    ->get();
+    }
+
+    public function getSearchCategory($inputs){
+        return $this->where('tag_category_id', $inputs['tag_category_id'])
                     ->get();
     }
 }

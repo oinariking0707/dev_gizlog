@@ -11,12 +11,16 @@ class TagCategory extends Model
     use SoftDeletes;
 
     protected $fillable = ['name'];
-    protected $table = 'tag_categories';
+    // protected $table = 'tag_categories';
     protected $dates = ['deleted_at'];
 
     public function question(){
-        return $this->hasMany(Question::class);
-                    
+        return $this->hasMany('App\Models\Question'); 
+    }
+
+    public function tagCategories()
+    {
+        return $this->all();
     }
 }
 

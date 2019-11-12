@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-    {{ $inputs['tag_category_id'] }}&nbsp;の質問
+      &nbsp;{{ $category }}の質問
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
@@ -23,11 +23,15 @@
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    {!! Form::open(['route'=>'question.store','method'=>'POST']) !!}
-      <input name="user_id" type="hidden" value="">
-      <input name="tag_category_id" type="hidden" value="{{ $inputs['tag_category_id'] }}">
-      <input name="title" type="hidden" value="{{ $inputs['title'] }}">
-      <input name="comment" type="hidden" value="{{ $inputs['comment'] }}">
+  @if($inputs['confirm'] === 'create')
+    {!! Form::open(['route'=>'question.store', 'method'=>'POST']) !!}
+    @else
+    {!! Form::open(['route'=>['question.update',$inputs['id']], 'method'=>'PUT']) !!}
+      @endif
+      {!! Form::hidden('user_id', Auth::id()) !!}
+      {!! Form::hidden('tag_category_id', $inputs['tag_category_id']) !!}
+      {!! Form::hidden('title', $inputs['title']) !!}
+      {!! Form::hidden('comment', $inputs['comment']) !!}
       <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
     {!! Form::close() !!}
   </div>

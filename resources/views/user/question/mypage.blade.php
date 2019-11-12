@@ -18,26 +18,26 @@
         </tr>
       </thead>
       <tbody>
-      @foreach($questions as $question)
+      @foreach($myQuestions as $myquestion)
         <tr class="row">
-          <td class="col-xs-2">{{ $question->created_at->format('Y年m月d日') }}</td>
-          <td class="col-xs-1">{{ $question->tag_category_id }}</td>
-          <td class="col-xs-5">{{ $question->title }}</td>
-          <td class="col-xs-2">{{ $question->comment }}<span class="point-color"></span></td>
+          <td class="col-xs-2">{{ $myquestion->created_at->format('Y-m-d') }}</td>
+          <td class="col-xs-1">{{ $myquestion->tagCategory->name }}</td>
+          <td class="col-xs-5">{{ $myquestion->title }}</td>
+          <td class="col-xs-2">{{ $myquestion->comments->count() }}<span class="point-color"></span></td>
           <td class="col-xs-1">
-            <a class="btn btn-success" href="{{ route('question.show',$question->id) }}">
+            <a class="btn btn-success" href="{{ route('question.edit', $myquestion->id) }}">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
           </td>
           <td class="col-xs-1">
-          {!! Form::open(['route'=>['question.destroy',$question->id],'method'=>'DELETE']) !!}
+          {!! Form::open(['route'=>['question.destroy', $myquestion->id], 'method'=>'DELETE']) !!}
               <button class="btn btn-danger" type="submit">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
-            {!! Form::close() !!}
+          {!! Form::close() !!}
           </td>
         </tr>
-        @endforeach
+      @endforeach
       </tbody>
     </table>
   </div>

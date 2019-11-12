@@ -22,12 +22,16 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
         }
     });
 
-    Route::get('comment', 'CommentController@index')->name('comment.index');
-    Route::get('comment/create', 'CommentController@create')->name('comment.create');
-
-    Route::get('question/{id}', 'QuestionController@showQuestion')->name('question.showQuestion');
-    Route::get('question/confirm', 'QuestionController@confirm')->name('question.confirm');
-    Route::resource('question', 'QuestionController');
+    Route::post('question/{id}/comment', 'QuestionController@storeComment')->name('question.storeComment');
+    Route::get('question', 'QuestionController@index')->name('question.index');
+    Route::get('question/create', 'QuestionController@create')->name('question.create');
+    Route::get('question/mypage/{id}', 'QuestionController@mypage')->name('question.mypage');
+    Route::post('question', 'QuestionController@store')->name('question.store');
+    Route::get('question/{id}', 'QuestionController@show')->name('question.show');
+    Route::get('question/{id}/edit', 'QuestionController@edit')->name('question.edit');
+    Route::put('question/{id}', 'QuestionController@update')->name('question.update');
+    Route::delete('question/{id}', 'QuestionController@destroy')->name('question.destroy');
+    Route::post('question/confirm', 'QuestionController@confirm')->name('question.confirm');
 
     Route::get('slack/login', 'Auth\AuthenticateController@callSlackApi');
     Route::get('callback', 'Auth\AuthenticateController@loginBySlackUserInfo');

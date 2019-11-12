@@ -21,4 +21,12 @@ class Comment extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function question(){
+        return $this->belongTo('App\Models\Question');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }
