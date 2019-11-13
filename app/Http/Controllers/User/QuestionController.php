@@ -35,6 +35,7 @@ class QuestionController extends Controller
     {
         $categories = $this->category->all();
         $inputs = $request->all();
+        $pages = Question::paginate(10);
         // dd($inputs);
         if(!empty($inputs['search-word'])) {
             $questions = $this->question->getSearchRecode($inputs);
@@ -45,7 +46,7 @@ class QuestionController extends Controller
         }
         // if(!empty($inputs)) {
         //     $questions = $this->question->getSearchCategory($inputs);
-        return view('user.question.index', compact('questions', 'inputs', 'categories'));
+        return view('user.question.index', compact('questions', 'inputs', 'categories', 'pages'));
     }
 
     /**
@@ -129,8 +130,9 @@ class QuestionController extends Controller
     */
     public function mypage()
     {
+        $pages = Question::paginate(10);
         $myQuestions = $this->question->where('user_id', Auth::id())->get();
-        return view('user.question.mypage', compact('myQuestions'));
+        return view('user.question.mypage', compact('myQuestions', 'pages'));
     }
 
     public function confirm(QuestionsRequest $request)

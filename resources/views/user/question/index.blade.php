@@ -3,7 +3,7 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  {!! Form::open(['route'=>'question.index', 'method'=>'GET']) !!}
+  {!! Form::open(['route'=>'question.index', 'method'=>'GET'], ['class'=>'blocked']) !!}
   <div class="btn-wrapper">
     <div class="search-box">
       {!! Form::input('text', 'search-word', empty($input['search-word']) ? null : $input['search-word'], ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
@@ -15,11 +15,13 @@
       </a>
   </div>
   <div class="category-wrap blocked">
-    <div class="btn all" id="0">all</div>
+    <div class="btn all @if(empty($input['tag_category_id'])) selected @endif" id="0">all</div>
     @foreach($categories as $category)
-    <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div>
+    <div class="btn {{ $category->name }}
+    @if(!empty($input['tag_category_id']) && $input['tag_category_id'] == $category->id) selected @endif"
+    id="{{ $category->id }}">{{ $category->name }}</div>
     @endforeach
-    {!! Form::hidden('tag_category_id', 'null', ['id'=>'category-val']) !!}
+    {!! Form::input('hidden', 'tag_category_id', empty($input['tag_category_id']) ? null : $input['tag_category_id'], ['id'=>'category-val']) !!}
   </div>
   {!! Form::close() !!}
   <div class="content-wrapper table-responsive">
@@ -50,7 +52,7 @@
       @endforeach
       </tbody>
     </table>
-    <div aria-label="Page navigation example" class="text-center"></div>
+    <div aria-label="Page navigation example" class="text-center"> {{ $pages->links() }}</div>
   </div>
 </div>
 

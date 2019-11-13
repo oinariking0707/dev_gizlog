@@ -40,6 +40,7 @@
       @endforeach
       </tbody>
     </table>
+    <div aria-label="Page navigation example" class="text-center"> {{ $pages->links() }}</div>
   </div>
 </div>
 
