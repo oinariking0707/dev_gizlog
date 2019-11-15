@@ -30,6 +30,4 @@ class CreateTagCategoriesTable extends Migration
     {
         Schema::drop('tag_categories');
     }
-
 }
-

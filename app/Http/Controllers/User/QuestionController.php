@@ -41,17 +41,17 @@ class QuestionController extends Controller
         // dd($word);
         $category = $request->tag_category_id;
         // dd($inputs);
-        $page = Question::paginate(5);
+
 
         if(!empty($input['search_word'])) {
             $questions = $this->question->getSearchRecode($input);
         }elseif(!empty($input['tag_category_id'])) {
             $questions = $this->question->getSearchCategory($input);
         }else{
-            $questions = $this->question->all();
+            $questions = $this->question->paginate(10);
         }
         // $questions = Question::paginate(5);
-        return view('user.question.index', compact('questions', 'categories','page'));
+        return view('user.question.index', compact('questions', 'categories','input'));
     }
 
     /**

@@ -53,7 +53,7 @@
       @endforeach
       </tbody>
     </table>
-    <div aria-label="Page navigation example" class="text-center"></div>
+    <div aria-label="Page navigation example" class="text-center">{{ $questions->appends($input)->links() }}</div>
 
   </div>
 </div>
