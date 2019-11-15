@@ -29,29 +29,22 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         $input = $request->all();
-        // dd($input);
         $categories = $this->category->all();
-    // dd($categories);
-        $words = $request->search_word;
-        // dd($word);
-        $category = $request->tag_category_id;
-        // dd($inputs);
 
-
-        if(!empty($input['search_word'])) {
+        if (!empty($input['search_word'])) {
             $questions = $this->question->getSearchRecode($input);
-        }elseif(!empty($input['tag_category_id'])) {
+        } elseif (!empty($input['tag_category_id'])) {
             $questions = $this->question->getSearchCategory($input);
-        }else{
+        } else {
             $questions = $this->question->paginate(10);
         }
-        // $questions = Question::paginate(5);
-        return view('user.question.index', compact('questions', 'categories','input'));
+        return view('user.question.index', compact('questions', 'categories', 'input'));
     }
 
     /**
@@ -100,21 +93,21 @@ class QuestionController extends Controller
     public function edit($id)
     {
         $categories = $this->category->all();
-        $input = $this->question->find($id);
-        return view('user.question.edit', compact('input', 'categories'));
+        $questionInput = $this->question->find($id);
+        return view('user.question.edit', compact('questionInput', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param QuestionsRequest  $request
-     * @param  int  $questionId
+     * @param \Illuminate\Http\Request  $request
+     * @param  int  $Id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $inputs = $request->all();
-        $this->question->find($id)->fill($inputs)->save();
+        $input = $request->all();
+        $this->question->find($id)->fill($input)->save();
         return redirect()->route('question.index');
     }
 
@@ -130,9 +123,10 @@ class QuestionController extends Controller
         return redirect()->route('question.index');
     }
 
-    /** 
-    * 
-    */
+    /**
+     * マイページ表示
+     * @return \Illuminate\Http\Response
+     */
     public function mypage()
     {
         $myQuestions = $this->question->where('user_id', Auth::id())->get();
@@ -140,18 +134,28 @@ class QuestionController extends Controller
         return view('user.question.mypage', compact('myQuestions'));
     }
 
+    /**
+     * 確認画面表示
+     * @param  QuestionsRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function confirm(QuestionsRequest $request)
     {
-        $inputs = $request->all();
-        $category = $this->category->find($inputs['tag_category_id'])->name;
-        return view('user.question.confirm', compact('inputs', 'category'));
+        $input = $request->all();
+        $category = $this->category->find($input['tag_category_id'])->name;
+        return view('user.question.confirm', compact('input', 'category'));
     }
 
+    /**
+     * コメント登録
+     * @param  CommentRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function storeComment(CommentRequest $request)
     {
         $input = $request->all();
-        // dd($input);
         $this->comment->create($input);
         return redirect()->route('question.index');
     }
 }
+

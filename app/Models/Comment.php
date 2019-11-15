@@ -22,11 +22,13 @@ class Comment extends Model
         'deleted_at',
     ];
 
-    public function question(){
+    public function question()
+    {
         return $this->belongTo('App\Models\Question');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Models\User');
     }
 }

@@ -23,24 +23,29 @@ class Question extends Model
         'deleted_at',
     ];
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany('App\Models\Comment');
     }
 
-    public function tagCategory(){
+    public function tagCategory()
+    {
         return $this->belongsTo('App\Models\TagCategory');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Models\User');
     }
 
-    public function scopegetSearchRecode($query, $input){
+    public function scopegetSearchRecode($query, $input)
+    {
         return $query->where('title', 'like', '%'. $input['search_word']. '%')
         ->paginate(10);
     }
 
-    public function scopegetSearchCategory($query, $input){
+    public function scopegetSearchCategory($query, $input)
+    {
         return $query->where('tag_category_id', $input['tag_category_id'])
         ->paginate(10);
     }

@@ -12,26 +12,26 @@
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text">{{ $inputs['title'] }}</td>
+            <td class="td-text">{{ $input['title'] }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{{ $inputs['comment'] }}</td>
+            <td class='td-text'>{{ $input['comment'] }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-  @if($inputs['confirm'] === 'create')
+  @if($input['confirm'] === 'create')
     {!! Form::open(['route'=>'question.store', 'method'=>'POST']) !!}
-    @else
-    {!! Form::open(['route'=>['question.update',$inputs['id']], 'method'=>'PUT']) !!}
-      @endif
+  @else
+    {!! Form::open(['route'=>['question.update', $input['id']], 'method'=>'PUT']) !!}
+  @endif
       {!! Form::hidden('user_id', Auth::id()) !!}
-      {!! Form::hidden('tag_category_id', $inputs['tag_category_id']) !!}
-      {!! Form::hidden('title', $inputs['title']) !!}
-      {!! Form::hidden('comment', $inputs['comment']) !!}
+      {!! Form::hidden('tag_category_id', $input['tag_category_id']) !!}
+      {!! Form::hidden('title', $input['title']) !!}
+      {!! Form::hidden('comment', $input['comment']) !!}
       <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
     {!! Form::close() !!}
   </div>

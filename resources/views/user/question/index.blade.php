@@ -4,26 +4,23 @@
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
   {!! Form::open(['route'=>'question.index', 'method'=>'GET'], ['class'=>'blocked']) !!}
-  <div class="btn-wrapper">
-    <div class="search-box">
-      {!! Form::input('text', 'search_word', empty($input['search_word']) ? null : $input['search_word'], ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
-    <button type="submit" class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
-    </div>
+    <div class="btn-wrapper">
+      <div class="search-box">
+        {!! Form::input('text', 'search_word', empty($input['search_word']) ? null : $input['search_word'], ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
+        <button type="submit" class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
+      </div>
       <a class="btn" href="{{ route('question.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
       <a class="btn" href="{{ route('question.mypage', Auth::user()) }}">
         <i class="fa fa-user" aria-hidden="true"></i>
       </a>
-  </div>
-  <div class="category-wrap blocked">
-    <input type="submit" class="btn all" value="all" id=""> 
-  
-  @foreach($categories as $category)
-    <input id="{{$category->id}}" name="tag_category_id" type="submit" class="btn {{$category->name}}" value="{{ $category->name }}">
-    <!-- <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div> -->
-    @endforeach
-    <!-- {!! Form::hidden('tag_category_id', 'null', ['id'=>'category-val']) !!} -->
-      <input id="category-val" name="tag_category_id" type="hidden" value="">
-  </div>
+    </div>
+    <div class="category-wrap blocked">
+      {!! Form::input('submit', '', 'all', ['class' => 'btn all', 'id' => '']) !!}
+      @foreach($categories as $category)
+      <input id="{{$category->id}}" name="tag_category_id" type="submit" class="btn {{$category->name}}" value="{{ $category->name }}">
+      @endforeach
+      {!! Form::input('hidden', 'tag_category_id', '', ['id' => 'category-val']) !!}
+    </div>
   {!! Form::close() !!}
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
@@ -44,7 +41,6 @@
           <td class="col-xs-6">{{ $question->title }}</td>
           <td class="col-xs-1">{{ $question->comments->count() }}<span class="point-color"> </span></td>
           <td class="col-xs-2">
-          <!-- 詳細画面のルート指定 -->
             <a class="btn btn-success" href="{{ route('question.show', $question->id) }}">
               <i class="fa fa-comments-o" aria-hidden="true"></i>
             </a>
@@ -54,7 +50,6 @@
       </tbody>
     </table>
     <div aria-label="Page navigation example" class="text-center">{{ $questions->appends($input)->links() }}</div>
-
   </div>
 </div>
 

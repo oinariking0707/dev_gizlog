@@ -6,13 +6,13 @@
   <div class="container">
     {!! Form::open(['route'=>'question.confirm', 'method'=>'POST']) !!}
       <div class="form-group @if(!empty($errors->first('tag_category_id'))) has-error @endif">
-      {!! Form::select('tag_category_id'
-    , array_pluck($categories, 'name', 'id')
-    , ''
-    , ['class' => 'form-control selectpicker form-size-small'
-    , 'id' => 'pref_id'
-    , 'placeholder' => 'SelectCategory']) !!}
-    <span class="help-block">{{ $errors->first('tag_category_id') }}</span>
+        {!! Form::select('tag_category_id'
+        , array_pluck($categories, 'name', 'id')
+        , ''
+        , ['class' => 'form-control selectpicker form-size-small'
+        , 'id' => 'pref_id'
+        , 'placeholder' => 'SelectCategory']) !!}
+      　<span class="help-block">{{ $errors->first('tag_category_id') }}</span>
       </div>
       <div class="form-group @if(!empty($errors->first('title'))) has-error @endif">
         {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'title']) !!}
@@ -22,7 +22,7 @@
         {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
         <span class="help-block">{{ $errors->first('comment') }}</span>
       </div>
-      <input name="confirm" class="btn btn-success pull-right" type="submit" value="create">
+      {!! Form::input('submit', 'confirm', 'create', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}
   </div>
 </div>

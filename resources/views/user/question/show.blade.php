@@ -24,27 +24,27 @@
       </table>
     </div>
   </div>
-    <div class="comment-list">
+  <div class="comment-list">
+      <div class="comment-wrap">
     @foreach($input->comments as $commentQ)
-        <div class="comment-wrap">
-          <div class="comment-title">
-            <img src="{{ $commentQ->user->avatar }}" class="avatar-img">
-            <p></p>
-            <p class="comment-date">{{ $commentQ->created_at->format('Y-m-d') }}</p>
-          </div>
-          <div class="comment-body">{{ $commentQ->comment }}</div>
+        <div class="comment-title">
+          <img src="{{ $commentQ->user->avatar }}" class="avatar-img">
+          <p></p>
+          <p class="comment-date">{{ $commentQ->created_at->format('Y-m-d') }}</p>
         </div>
-        @endforeach
-    </div>
+        <div class="comment-body">{{ $commentQ->comment }}</div>
+      </div>
+    @endforeach
+  </div>
     <div class="comment-box">
     {!! Form::open(['route'=>['question.storeComment', $input->id]]) !!}
-    {!! Form::hidden('user_id', Auth::id()) !!}
-    {!! Form::hidden('question_id', $input->id) !!}
+      {!! Form::hidden('user_id', Auth::id()) !!}
+      {!! Form::hidden('question_id', $input->id) !!}
       <div class="comment-title">
         <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
       <div class="comment-body @if(!empty($errors->first('comment'))) has-error @endif">
-      {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Add your comment...']) !!}
+        {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Add your comment...']) !!}
         <span class="help-block">{{ $errors->first('comment') }}</span>
       </div>
       <div class="comment-bottom">
