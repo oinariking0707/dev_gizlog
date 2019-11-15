@@ -35,13 +35,13 @@ class Question extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function getSearchRecode($inputs){
-        return $this->where('title', 'like', '%'. $inputs['search-word']. '%')
+    public function getSearchRecode($input){
+        return $this->where('title', 'like', '%'. $input['search_word']. '%')
                     ->get();
     }
 
-    public function getSearchCategory($inputs){
-        return $this->where('tag_category_id', $inputs['tag_category_id'])
+    public function getSearchCategory($input){
+        return $this->where('tag_category_id', $input['tag_category_id'])
                     ->get();
     }
 }

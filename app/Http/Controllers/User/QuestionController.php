@@ -33,20 +33,25 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
+        $input = $request->all();
+        // dd($input);
         $categories = $this->category->all();
-        $inputs = $request->all();
-        $pages = Question::paginate(10);
+    // dd($categories);
+        $words = $request->search_word;
+        // dd($word);
+        $category = $request->tag_category_id;
         // dd($inputs);
-        if(!empty($inputs['search-word'])) {
-            $questions = $this->question->getSearchRecode($inputs);
-        }elseif(!empty($inputs['tag_category_id'])) {
+        $page = Question::paginate(5);
 
+        if(!empty($input['search_word'])) {
+            $questions = $this->question->getSearchRecode($input);
+        }elseif(!empty($input['tag_category_id'])) {
+            $questions = $this->question->getSearchCategory($input);
         }else{
             $questions = $this->question->all();
         }
-        // if(!empty($inputs)) {
-        //     $questions = $this->question->getSearchCategory($inputs);
-        return view('user.question.index', compact('questions', 'inputs', 'categories', 'pages'));
+        // $questions = Question::paginate(5);
+        return view('user.question.index', compact('questions', 'categories','page'));
     }
 
     /**
@@ -130,9 +135,9 @@ class QuestionController extends Controller
     */
     public function mypage()
     {
-        $pages = Question::paginate(10);
         $myQuestions = $this->question->where('user_id', Auth::id())->get();
-        return view('user.question.mypage', compact('myQuestions', 'pages'));
+        $myQuestions = Question::paginate(10);
+        return view('user.question.mypage', compact('myQuestions'));
     }
 
     public function confirm(QuestionsRequest $request)
