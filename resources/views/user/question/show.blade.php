@@ -25,20 +25,20 @@
     </div>
   </div>
   <div class="comment-list">
-      <div class="comment-wrap">
-    @foreach($input->comments as $commentQ)
+    <div class="comment-wrap">
+      @foreach($input->comments as $commentQ)
         <div class="comment-title">
           <img src="{{ $commentQ->user->avatar }}" class="avatar-img">
           <p></p>
           <p class="comment-date">{{ $commentQ->created_at->format('Y-m-d') }}</p>
         </div>
         <div class="comment-body">{{ $commentQ->comment }}</div>
-      </div>
-    @endforeach
+      @endforeach
+    </div>
   </div>
-    <div class="comment-box">
+  <div class="comment-box">
     {!! Form::open(['route'=>['question.storeComment', $input->id]]) !!}
-      {!! Form::hidden('user_id', Auth::id()) !!}
+      {!! Form::hidden('user_id', '') !!}
       {!! Form::hidden('question_id', $input->id) !!}
       <div class="comment-title">
         <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>

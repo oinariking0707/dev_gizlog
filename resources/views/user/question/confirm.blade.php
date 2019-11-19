@@ -28,7 +28,7 @@
   @else
     {!! Form::open(['route'=>['question.update', $input['id']], 'method'=>'PUT']) !!}
   @endif
-      {!! Form::hidden('user_id', Auth::id()) !!}
+      {!! Form::hidden('user_id', '') !!}
       {!! Form::hidden('tag_category_id', $input['tag_category_id']) !!}
       {!! Form::hidden('title', $input['title']) !!}
       {!! Form::hidden('comment', $input['comment']) !!}

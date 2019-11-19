@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Arr;
 
 class Question extends Model
 {
@@ -23,6 +25,11 @@ class Question extends Model
         'deleted_at',
     ];
 
+    /**
+     * ページネーション数指定
+     */
+    const PAGENUM = 10;
+
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
@@ -36,18 +43,51 @@ class Question extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+
     }
 
-    public function scopegetSearchRecode($query, $input)
+    /**
+    *絞り込みのまとめ
+    */
+    public function getRecode($input)
     {
-        return $query->where('title', 'like', '%'. $input['search_word']. '%')
-        ->paginate(10);
+        if (!empty($input))
+        {
+        return $this->getSearchRecode(Arr::get($input, 'search_word'))
+        ->getSearchCategory(Arr::get($input, 'tag_category_id'))
+        ->paginate(self::PAGENUM);
+        } else {
+        return $this->paginate(self::PAGENUM);
+        }
     }
 
-    public function scopegetSearchCategory($query, $input)
+    /**
+     * ワード絞り込み
+     */
+    public function scopegetSearchRecode($query, $searchword)
     {
-        return $query->where('tag_category_id', $input['tag_category_id'])
-        ->paginate(10);
+        if (!empty($searchword)) {
+            return $query->where('title', 'like', '%'. $searchword. '%');
+        }
+    }
+
+    /**
+    *カテゴリ絞り込み
+     */
+    public function scopegetSearchCategory($query, $category)
+    {
+        if (!empty($category)) {
+            return $query->where('tag_category_id', $category);
+        }
+    }
+
+    /**
+    *ログインユーザーの質問取得
+    */
+    public function scopeauthUserQuestions($query)
+    {
+        return $query->where('user_id', Auth::id())
+        ->paginate(self::PAGENUM);
     }
 }
 

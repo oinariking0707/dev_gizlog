@@ -6,7 +6,7 @@
   {!! Form::open(['route'=>'question.index', 'method'=>'GET'], ['class'=>'blocked']) !!}
     <div class="btn-wrapper">
       <div class="search-box">
-        {!! Form::input('text', 'search_word', empty($input['search_word']) ? null : $input['search_word'], ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
+      {!! Form::text( 'search_word', null, ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
         <button type="submit" class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
       </div>
       <a class="btn" href="{{ route('question.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -19,7 +19,7 @@
       @foreach($categories as $category)
       <input id="{{$category->id}}" name="tag_category_id" type="submit" class="btn {{$category->name}}" value="{{ $category->name }}">
       @endforeach
-      {!! Form::input('hidden', 'tag_category_id', '', ['id' => 'category-val']) !!}
+      {!! Form::hidden('tag_category_id', '', ['id' => 'category-val']) !!}
     </div>
   {!! Form::close() !!}
   <div class="content-wrapper table-responsive">

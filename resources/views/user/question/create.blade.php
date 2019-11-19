@@ -15,7 +15,7 @@
       　<span class="help-block">{{ $errors->first('tag_category_id') }}</span>
       </div>
       <div class="form-group @if(!empty($errors->first('title'))) has-error @endif">
-        {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'title']) !!}
+        {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'title']) !!}
         <span class="help-block">{{ $errors->first('title') }}</span>
       </div>
       <div class="form-group @if(!empty($errors->first('comment'))) has-error @endif">

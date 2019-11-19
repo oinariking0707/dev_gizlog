@@ -36,14 +36,9 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         $categories = $this->category->all();
-
-        if (!empty($input['search_word'])) {
-            $questions = $this->question->getSearchRecode($input);
-        } elseif (!empty($input['tag_category_id'])) {
-            $questions = $this->question->getSearchCategory($input);
-        } else {
-            $questions = $this->question->paginate(10);
-        }
+        
+        $questions = $this->question->getRecode($input);
+        $request->flash();
         return view('user.question.index', compact('questions', 'categories', 'input'));
     }
 
@@ -66,6 +61,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        $request['user_id'] = Auth::id();
         $inputs = $request->all();
         $this->question->create($inputs);
         return redirect()->route('question.index');
@@ -106,6 +102,7 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request['user_id'] = Auth::id();
         $input = $request->all();
         $this->question->find($id)->fill($input)->save();
         return redirect()->route('question.index');
@@ -129,8 +126,7 @@ class QuestionController extends Controller
      */
     public function mypage()
     {
-        $myQuestions = $this->question->where('user_id', Auth::id())->get();
-        $myQuestions = Question::paginate(10);
+        $myQuestions = $this->question->authUserQuestions();
         return view('user.question.mypage', compact('myQuestions'));
     }
 
@@ -147,12 +143,14 @@ class QuestionController extends Controller
     }
 
     /**
+     *
      * コメント登録
      * @param  CommentRequest $request
      * @return \Illuminate\Http\Response
      */
     public function storeComment(CommentRequest $request)
     {
+        $request['user_id'] = Auth::id();
         $input = $request->all();
         $this->comment->create($input);
         return redirect()->route('question.index');

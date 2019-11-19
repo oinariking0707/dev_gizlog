@@ -34,8 +34,8 @@ class QuestionsRequest extends FormRequest
     {
         return [
             'required'           => '入力必須の項目です',
-            'title.max'          => '30文字以内で入力して下さい',
-            'comment.max'          => '1000文字以内で入力して下さい',
+            'title.max'          => ':max文字以内で入力して下さい',
+            'comment.max'          => ':max文字以内で入力して下さい',
         ];
     }
 }
