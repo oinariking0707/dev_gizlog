@@ -25,9 +25,7 @@ class Question extends Model
         'deleted_at',
     ];
 
-    /**
-     * ページネーション数指定
-     */
+    /*ページネーション数指定*/
     const PAGENUM = 10;
 
     public function comments()
@@ -51,13 +49,12 @@ class Question extends Model
     */
     public function getRecode($input)
     {
-        if (!empty($input))
-        {
-        return $this->getSearchRecode(Arr::get($input, 'search_word'))
-        ->getSearchCategory(Arr::get($input, 'tag_category_id'))
-        ->paginate(self::PAGENUM);
+        if (!empty($input)) {
+            return $this->getSearchRecode(Arr::get($input, 'search_word'))
+            ->getSearchCategory(Arr::get($input, 'tag_category_id'))
+            ->paginate(self::PAGENUM);
         } else {
-        return $this->paginate(self::PAGENUM);
+            return $this->paginate(self::PAGENUM);
         }
     }
 

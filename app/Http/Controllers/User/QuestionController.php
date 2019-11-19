@@ -25,7 +25,6 @@ class QuestionController extends Controller
         $this->comment = $comment;
         $this->category = $tagcategory;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +35,6 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         $categories = $this->category->all();
-        
         $questions = $this->question->getRecode($input);
         $request->flash();
         return view('user.question.index', compact('questions', 'categories', 'input'));
