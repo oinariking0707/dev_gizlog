@@ -47,7 +47,7 @@ class Question extends Model
     /**
     *絞り込みのまとめ
     */
-    public function getRecode($input)
+    public function getRecord($input)
     {
         if (!empty($input)) {
             return $this->getSearchRecode(Arr::get($input, 'search_word'))
@@ -61,7 +61,7 @@ class Question extends Model
     /**
      * ワード絞り込み
      */
-    public function scopegetSearchRecode($query, $searchword)
+    public function scopegetSearchRecord($query, $searchword)
     {
         if (!empty($searchword)) {
             return $query->where('title', 'like', '%'. $searchword. '%');
@@ -81,9 +81,9 @@ class Question extends Model
     /**
     *ログインユーザーの質問取得
     */
-    public function scopeauthUserQuestions($query)
+    public function authUserQuestions()
     {
-        return $query->where('user_id', Auth::id())
+        return $this->where('user_id', Auth::id())
         ->paginate(self::PER_PAGE);
     }
 }

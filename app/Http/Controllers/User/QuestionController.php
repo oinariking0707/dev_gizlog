@@ -34,7 +34,7 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         $categories = $this->category->all();
-        $questions = $this->question->getRecode($input);
+        $questions = $this->question->getRecord($input);
         $request->flash();
         return view('user.question.index', compact('questions', 'categories', 'input'));
     }
