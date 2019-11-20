@@ -42,7 +42,7 @@
       <div class="comment-title">
         <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
-      <div class="comment-body @if(!empty($errors->first('comment'))) has-error @endif">
+      <div class="comment-body @if(($errors->has('comment'))) has-error @endif">
         {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Add your comment...']) !!}
         <span class="help-block">{{ $errors->first('comment') }}</span>
       </div>
