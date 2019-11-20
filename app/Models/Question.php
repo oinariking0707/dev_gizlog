@@ -26,7 +26,7 @@ class Question extends Model
     ];
 
     /*ページネーション数指定*/
-    const PAGENUM = 10;
+    const PER_PAGE = 10;
 
     public function comments()
     {
@@ -52,9 +52,9 @@ class Question extends Model
         if (!empty($input)) {
             return $this->getSearchRecode(Arr::get($input, 'search_word'))
             ->getSearchCategory(Arr::get($input, 'tag_category_id'))
-            ->paginate(self::PAGENUM);
+            ->paginate(self::PER_PAGE);
         } else {
-            return $this->paginate(self::PAGENUM);
+            return $this->paginate(self::PER_PAGE);
         }
     }
 
@@ -84,7 +84,7 @@ class Question extends Model
     public function scopeauthUserQuestions($query)
     {
         return $query->where('user_id', Auth::id())
-        ->paginate(self::PAGENUM);
+        ->paginate(self::PER_PAGE);
     }
 }
 
