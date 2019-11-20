@@ -30,17 +30,17 @@ class Question extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function tagCategory()
     {
-        return $this->belongsTo('App\Models\TagCategory');
+        return $this->belongsTo(TagCategory::class);
     }
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
 
     }
 
@@ -50,7 +50,7 @@ class Question extends Model
     public function getRecord($input)
     {
         if (!empty($input)) {
-            return $this->getSearchRecode(Arr::get($input, 'search_word'))
+            return $this->getSearchRecord(Arr::get($input, 'search_word'))
             ->getSearchCategory(Arr::get($input, 'tag_category_id'))
             ->paginate(self::PER_PAGE);
         } else {
