@@ -50,8 +50,8 @@ class Question extends Model
     public function getRecord($input)
     {
         if (!empty($input)) {
-            return $this->getSearchRecord(Arr::get($input, 'search_word'))
-            ->getSearchCategory(Arr::get($input, 'tag_category_id'))
+            return $this->getSameSearchWord(Arr::get($input, 'search_word'))
+            ->getSameSearchCategory(Arr::get($input, 'tag_category_id'))
             ->paginate(self::PER_PAGE);
         } else {
             return $this->paginate(self::PER_PAGE);
@@ -61,17 +61,17 @@ class Question extends Model
     /**
      * ワード絞り込み
      */
-    public function scopegetSearchRecord($query, $searchword)
+    public function scopegetSameSearchWord($query, $searchword)
     {
         if (!empty($searchword)) {
-            return $query->where('title', 'like', '%'. $searchword. '%');
+            return $query->where('title', 'like', $searchword. '%');
         }
     }
 
     /**
     *カテゴリ絞り込み
      */
-    public function scopegetSearchCategory($query, $category)
+    public function scopegetSameSearchCategory($query, $category)
     {
         if (!empty($category)) {
             return $query->where('tag_category_id', $category);
