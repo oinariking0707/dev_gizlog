@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\User\QuestionsRequest;
 use App\Http\Requests\User\CommentRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Question;
 use App\Models\Comment;
 use App\Models\TagCategory;
@@ -26,7 +25,7 @@ class QuestionController extends Controller
         $this->category = $tagcategory;
     }
     /**
-     * Display a listing of the resource.
+     * 一覧画面表示
      *
      * \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -41,7 +40,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 作成画面
      *
      * @return \Illuminate\Http\Response
      */
@@ -52,7 +51,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * DBに新規作成しindexに返している
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -66,7 +65,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 質問詳細画面表示
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -79,7 +78,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 編集画面表示
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -92,7 +91,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * ユーザーの更新処理
      *
      * @param \Illuminate\Http\Request  $request
      * @param  int  $Id
@@ -107,7 +106,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * ユーザーの削除処理
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
