@@ -58,9 +58,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $request['user_id'] = Auth::id();
-        $inputs = $request->all();
-        $this->question->create($inputs);
+        $input = $request->all();
+        $input['user_id'] =  Auth::id();
+        $this->question->create($input);
         return redirect()->route('question.index');
     }
 
@@ -98,8 +98,8 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request['user_id'] = Auth::id();
         $input = $request->all();
+        $input['user_id'] = Auth::id();
         $this->question->find($id)->fill($input)->save();
         return redirect()->route('question.index');
     }
@@ -145,8 +145,8 @@ class QuestionController extends Controller
      */
     public function storeComment(CommentRequest $request)
     {
-        $request['user_id'] = Auth::id();
         $input = $request->all();
+        $input['user_id'] = Auth::id();
         $this->comment->create($input);
         return redirect()->route('question.index');
     }
