@@ -12,26 +12,26 @@
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text">{{ $input['title'] }}</td>
+            <td class="td-text">{{ $request['title'] }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{{ $input['comment'] }}</td>
+            <td class='td-text'>{{ $request['comment'] }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-  @if($input['confirm'] === 'create')
+  @if($request['confirm'] === 'create')
     {!! Form::open(['route'=>'question.store', 'method'=>'POST']) !!}
   @else
-    {!! Form::open(['route'=>['question.update', $input['id']], 'method'=>'PUT']) !!}
+    {!! Form::open(['route'=>['question.update', $request['id']], 'method'=>'PUT']) !!}
   @endif
       {!! Form::hidden('user_id', '') !!}
-      {!! Form::hidden('tag_category_id', $input['tag_category_id']) !!}
-      {!! Form::hidden('title', $input['title']) !!}
-      {!! Form::hidden('comment', $input['comment']) !!}
+      {!! Form::hidden('tag_category_id', $request['tag_category_id']) !!}
+      {!! Form::hidden('title', $request['title']) !!}
+      {!! Form::hidden('comment', $request['comment']) !!}
       <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
     {!! Form::close() !!}
   </div>
