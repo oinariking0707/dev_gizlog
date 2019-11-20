@@ -49,7 +49,7 @@ class Question extends Model
     */
     public function getRecord($input)
     {
-        if (!empty($input)) {
+        if (isset($input)) {
             return $this->getSameSearchWord(Arr::get($input, 'search_word'))
             ->getSameSearchCategory(Arr::get($input, 'tag_category_id'))
             ->paginate(self::PER_PAGE);
@@ -63,7 +63,7 @@ class Question extends Model
      */
     public function scopegetSameSearchWord($query, $searchword)
     {
-        if (!empty($searchword)) {
+        if (isset($searchword)) {
             return $query->where('title', 'like', $searchword. '%');
         }
     }
@@ -73,7 +73,7 @@ class Question extends Model
      */
     public function scopegetSameSearchCategory($query, $category)
     {
-        if (!empty($category)) {
+        if (isset($category)) {
             return $query->where('tag_category_id', $category);
         }
     }
