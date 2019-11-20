@@ -53,9 +53,7 @@ class Question extends Model
             return $this->getSameSearchWord(Arr::get($input, 'search_word'))
             ->getSameSearchCategory(Arr::get($input, 'tag_category_id'))
             ->paginate(self::PER_PAGE);
-        } else {
-            return $this->paginate(self::PER_PAGE);
-        }
+        } 
     }
 
     /**
