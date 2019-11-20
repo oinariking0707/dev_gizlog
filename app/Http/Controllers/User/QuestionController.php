@@ -72,9 +72,8 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $avatar = $this->question->all();
-        $input = $this->question->find($id);
-        return view('user.question.show', compact('input', 'avatar'));
+        $question = $this->question->find($id);
+        return view('user.question.show', compact('question'));
     }
 
     /**

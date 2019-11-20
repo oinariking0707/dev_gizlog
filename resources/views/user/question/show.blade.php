@@ -6,7 +6,7 @@
   <div class="panel panel-success">
     <div class="panel-heading">
       <img src="" class="avatar-img">
-      <p>&nbsp;{{ Auth::user()->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;{{ $input->tagCategory->name }}&nbsp;)</p>
+      <p>&nbsp;{{ Auth::user()->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;{{ $question->tagCategory->name }}&nbsp;)</p>
       <p class="question-date"></p>
     </div>
     <div class="table-responsive">
@@ -14,11 +14,11 @@
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text">{{ $input->title }}</td>
+            <td class="td-text">{{ $question->title }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{{ $input->comment }}</td>
+            <td class='td-text'>{{ $question->comment }}</td>
           </tr>
         </tbody>
       </table>
@@ -26,7 +26,7 @@
   </div>
   <div class="comment-list">
     <div class="comment-wrap">
-      @foreach($input->comments as $commentQ)
+      @foreach($question->comments as $commentQ)
         <div class="comment-title">
           <img src="{{ $commentQ->user->avatar }}" class="avatar-img">
           <p></p>
@@ -37,9 +37,9 @@
     </div>
   </div>
   <div class="comment-box">
-    {!! Form::open(['route'=>['question.storeComment', $input->id]]) !!}
+    {!! Form::open(['route'=>['question.storeComment', $question->id]]) !!}
       {!! Form::hidden('user_id', '') !!}
-      {!! Form::hidden('question_id', $input->id) !!}
+      {!! Form::hidden('question_id', $question->id) !!}
       <div class="comment-title">
         <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
