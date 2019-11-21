@@ -26,7 +26,7 @@ class DailyReportRequest extends FormRequest
         return [
             'reporting_time' => 'required|before:now',
             'title'          => 'required|max:30',
-            'contents'       => 'required|max:250',
+            'content'       => 'required|max:250',
         ];
     }
   
@@ -37,8 +37,8 @@ class DailyReportRequest extends FormRequest
             'reporting_time.required' => '入力必須の項目です。',
             'title.max'               => '30文字以内で入力してください。',
             'title.required'          => '入力必須の項目です。',
-            'contents.max'            => '250文字以内で入力してください。',
-            'contents.required'       => '入力必須の項目です。',
+            'content.max'            => '250文字以内で入力してください。',
+            'content.required'       => '入力必須の項目です。',
         ];
     }
 }

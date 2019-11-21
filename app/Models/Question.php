@@ -50,7 +50,8 @@ class Question extends Model
     public function getRecord($input)
     {
         if (isset($input)) {
-            return $this->getSameSearchWord(Arr::get($input, 'search_word'))
+            return $this->with(['user', 'tagCategory', 'comments'])
+            ->getSameSearchWord(Arr::get($input, 'search_word'))
             ->getSameSearchCategory(Arr::get($input, 'tag_category_id'))
             ->paginate(self::PER_PAGE);
         } 
@@ -81,7 +82,7 @@ class Question extends Model
     */
     public function authUserQuestions()
     {
-        return $this->where('user_id', Auth::id())
+        return $this->with(['user','tagCategory','comments'])->where('user_id', Auth::id())
         ->paginate(self::PER_PAGE);
     }
 }

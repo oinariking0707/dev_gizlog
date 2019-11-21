@@ -16,7 +16,7 @@
           </tr>
           <tr>
             <th class="table-column">Content</th>
-            <td class='td-text'>{!! nl2br(e($report->contents)) !!}</td>
+            <td class='td-text'>{!! nl2br(e($report->content)) !!}</td>
           </tr>
         </tbody>
       </table>

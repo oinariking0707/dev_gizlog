@@ -13,31 +13,31 @@ class DailyReportsTableSeeder extends Seeder
             [
                 'user_id' => 1,
                 'title' => '初日',
-                'contents' => '研修初日でした。',
+                'content' => '研修初日でした。',
                 'reporting_time' => Carbon::create('2016','1','20'),
             ],
             [
                 'user_id' => 1,
                 'title' => 'テスト１',
-                'contents' => 'これはテスト１です。',
+                'content' => 'これはテスト１です。',
                 'reporting_time' => Carbon::create('2016','3','20'),
             ],
             [
                 'user_id' => 1,
                 'title' => 'テスト２',
-                'contents' => 'これはテスト２です。',
+                'content' => 'これはテスト２です。',
                 'reporting_time' => Carbon::create('2016','3','25'),
             ],
             [
                 'user_id' => 1,
                 'title' => 'テスト３',
-                'contents' => 'これはテスト３です。',
+                'content' => 'これはテスト３です。',
                 'reporting_time' => Carbon::create('2017','3','20'),
             ],
             [
                 'user_id' => 1,
                 'title' => 'テスト４',
-                'contents' => 'これはテスト４です。',
+                'content' => 'これはテスト４です。',
                 'reporting_time' => Carbon::create('2017','4','16'),
             ]
         ]);
