@@ -14,7 +14,7 @@ class DailyReport extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'content',
+        'contents',
         'reporting_time',
     ];
 

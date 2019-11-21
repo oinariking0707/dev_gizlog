@@ -26,7 +26,7 @@
           <tr class="row">
             <td class="col-xs-2">{{ $report->reporting_time->format('m/d (D)') }}</td>
             <td class="col-xs-3">{{ $report->title }}</td>
-            <td class="col-xs-5">{{ mb_strimwidth($report->content, 0, 50, '...', 'UTF-8') }}</td>
+            <td class="col-xs-5">{{ mb_strimwidth($report->contents, 0, 50, '...', 'UTF-8') }}</td>
             <td class="col-xs-2"><a class="btn" href="report/{{ $report->id }}"><i class="fa fa-book"></i></a></td>
           </tr>
         @endforeach
