@@ -3,7 +3,7 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  {!! Form::open(['route'=>'question.index', 'method'=>'GET'], ['class'=>'blocked']) !!}
+  {!! Form::open(['route'=>'question.index', 'method'=>'GET', 'class' => 'categoryForm']) !!}
     <div class="btn-wrapper">
       <div class="search-box">
       {!! Form::text( 'search_word', null, ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
@@ -14,12 +14,12 @@
         <i class="fa fa-user" aria-hidden="true"></i>
       </a>
     </div>
-    <div class="category-wrap blocked">
-      {!! Form::input('submit', '', 'all', ['class' => 'btn all', 'id' => '']) !!}
-      @foreach($categoryName as $category)
-      <input id="{{$category->id}}" name="tag_category_id" type="submit" class="btn {{$category->name}}" value="{{ $category->name }}">
+    <div class="category-wrap">
+    <div class="btn all" id="null">all</div>
+      @foreach($categories as $category)
+      <div class="btn {{$category->name}}" id="{{$category->id}}">{{ $category->name }}</div>
       @endforeach
-      {!! Form::hidden('tag_category_id', '', ['id' => 'category-val']) !!}
+      {!! Form::hidden('tag_category_id', 'null', ['id' => 'category-val']) !!}
     </div>
   {!! Form::close() !!}
   <div class="content-wrapper table-responsive">

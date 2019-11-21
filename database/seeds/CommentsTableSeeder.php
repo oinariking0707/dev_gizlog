@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Comment;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class CommentsTableSeeder extends Seeder
     public function run()
     {
         DB::table('comments')->truncate();
-        factory(App\Models\Comment::class, 80)->create();
+        factory(Comment::class, 80)->create();
     }
 }

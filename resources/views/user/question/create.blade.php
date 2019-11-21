@@ -7,7 +7,7 @@
     {!! Form::open(['route'=>'question.confirm', 'method'=>'POST']) !!}
       <div class="form-group　@if($errors->has('tag_category_id')) has-error @endif">
         {!! Form::select('tag_category_id'
-        , array_pluck($categoryName, 'name', 'id')
+        , $categories->pluck('name', 'id')
         , ''
         , ['class' => 'form-control selectpicker form-size-small'
         , 'id' => 'pref_id'
@@ -22,7 +22,8 @@
         {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
         <span class="help-block">{{ $errors->first('comment') }}</span>
       </div>
-      {!! Form::input('submit', 'confirm', 'create', ['class' => 'btn btn-success pull-right']) !!}
+      {!! Form::submit('create', ['class' => 'btn btn-success pull-right']) !!}
+      {!! Form::hidden('confirm', 'create') !!}
     {!! Form::close() !!}
   </div>
 </div>

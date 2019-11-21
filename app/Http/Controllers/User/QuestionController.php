@@ -35,10 +35,10 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        $categoryName = $this->category->all();
+        $categories = $this->category->all();
         $questions = $this->question->getQuestions($input);
         $request->flash();
-        return view('user.question.index', compact('questions', 'categoryName', 'input'));
+        return view('user.question.index', compact('questions', 'categories', 'input'));
     }
 
     /**
@@ -48,8 +48,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $categoryName = $this->category->all();
-        return view('user.question.create', compact('categoryName'));
+        $categories = $this->category->all();
+        return view('user.question.create', compact('categories'));
     }
 
     /**
@@ -135,8 +135,8 @@ class QuestionController extends Controller
      */
     public function confirm(QuestionsRequest $request)
     {
-        $category = $this->category->find($request['tag_category_id'])->name;
-        return view('user.question.confirm', compact('request', 'category'));
+        $categoryName = $this->category->find($request['tag_category_id'])->name;
+        return view('user.question.confirm', compact('request', 'categoryName'));
     }
 
     /**

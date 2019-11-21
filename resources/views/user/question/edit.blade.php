@@ -22,7 +22,8 @@
       {!! Form::textarea('comment', $questionInput['comment'], ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
         <span class="help-block">{{ $errors->first('comment') }}</span>
       </div>
-      {!! Form::input('submit', 'confirm', 'update', ['class' => 'btn btn-success pull-right']) !!}
+      {!! Form::submit('update', ['class' => 'btn btn-success pull-right']) !!}
+      {!! Form::hidden('confirm', 'update') !!}
       {!! Form::hidden('id', $questionInput['id']) !!}
     {!! Form::close() !!}
   </div>

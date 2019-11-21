@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      &nbsp;{{ $category }}の質問
+      &nbsp;{{ $categoryName }}の質問
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
@@ -23,12 +23,11 @@
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-  @if($request['confirm'] === 'create')
-    {!! Form::open(['route'=>'question.store', 'method'=>'POST']) !!}
+  @if($request->filled('id') === true)
+  {!! Form::open(['route'=>['question.update', $request['id']], 'method'=>'PUT']) !!}
   @else
-    {!! Form::open(['route'=>['question.update', $request['id']], 'method'=>'PUT']) !!}
+  {!! Form::open(['route'=>'question.store', 'method'=>'POST']) !!}
   @endif
-      {!! Form::hidden('user_id', '') !!}
       {!! Form::hidden('tag_category_id', $request['tag_category_id']) !!}
       {!! Form::hidden('title', $request['title']) !!}
       {!! Form::hidden('comment', $request['comment']) !!}
