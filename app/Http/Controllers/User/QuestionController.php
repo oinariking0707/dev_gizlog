@@ -86,9 +86,9 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        $categoryName = $this->category->all();
+        $categories = $this->category->all();
         $questionInput = $this->question->find($id);
-        return view('user.question.edit', compact('questionInput', 'categoryName'));
+        return view('user.question.edit', compact('questionInput', 'categories'));
     }
 
     /**
