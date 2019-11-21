@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Http\Controllers\User\QuestionController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Arr;
@@ -25,9 +26,6 @@ class Question extends Model
         'deleted_at',
     ];
 
-    /*ページネーション数指定*/
-    const PER_PAGE = 10;
-
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -47,14 +45,12 @@ class Question extends Model
     /**
     *絞り込みのまとめ
     */
-    public function getRecord($input)
+    public function getQuestions($input)
     {
-        if (isset($input)) {
             return $this->with(['user', 'tagCategory', 'comments'])
-            ->getSameSearchWord(Arr::get($input, 'search_word'))
-            ->getSameSearchCategory(Arr::get($input, 'tag_category_id'))
-            ->paginate(self::PER_PAGE);
-        } 
+                ->getSameSearchWord(Arr::get($input, 'search_word'))
+                ->getSameSearchCategory(Arr::get($input, 'tag_category_id'))
+                ->paginate(QuestionController::PER_PAGE); 
     }
 
     /**
@@ -83,7 +79,7 @@ class Question extends Model
     public function authUserQuestions()
     {
         return $this->with(['user','tagCategory','comments'])->where('user_id', Auth::id())
-        ->paginate(self::PER_PAGE);
+            ->paginate(QuestionController::PER_PAGE);
     }
 }
 

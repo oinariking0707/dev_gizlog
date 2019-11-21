@@ -16,7 +16,7 @@
     </div>
     <div class="category-wrap blocked">
       {!! Form::input('submit', '', 'all', ['class' => 'btn all', 'id' => '']) !!}
-      @foreach($categories as $category)
+      @foreach($categoryName as $category)
       <input id="{{$category->id}}" name="tag_category_id" type="submit" class="btn {{$category->name}}" value="{{ $category->name }}">
       @endforeach
       {!! Form::hidden('tag_category_id', '', ['id' => 'category-val']) !!}

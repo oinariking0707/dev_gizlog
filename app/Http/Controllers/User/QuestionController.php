@@ -17,6 +17,8 @@ class QuestionController extends Controller
     protected $comment;
     protected $category;
 
+    const PER_PAGE = 10;
+
     public function __construct(Question $question, TagCategory $tagcategory, Comment $comment)
     {
         $this->middleware('auth');
@@ -33,10 +35,10 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        $categories = $this->category->all();
-        $questions = $this->question->getRecord($input);
+        $categoryName = $this->category->all();
+        $questions = $this->question->getQuestions($input);
         $request->flash();
-        return view('user.question.index', compact('questions', 'categories', 'input'));
+        return view('user.question.index', compact('questions', 'categoryName', 'input'));
     }
 
     /**
@@ -46,8 +48,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $categories = $this->category->all();
-        return view('user.question.create', compact('categories'));
+        $categoryName = $this->category->all();
+        return view('user.question.create', compact('categoryName'));
     }
 
     /**
@@ -84,9 +86,9 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        $categories = $this->category->all();
+        $categoryName = $this->category->all();
         $questionInput = $this->question->find($id);
-        return view('user.question.edit', compact('questionInput', 'categories'));
+        return view('user.question.edit', compact('questionInput', 'categoryName'));
     }
 
     /**
