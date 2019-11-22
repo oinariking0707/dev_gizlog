@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\QuestionsRequest;
 use App\Http\Requests\User\CommentRequest;
+use App\Http\Requests\User\QuestionSearchRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Question;
 use App\Models\Comment;
@@ -32,7 +33,7 @@ class QuestionController extends Controller
      * \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(QuestionSearchRequest $request)
     {
         $input = $request->all();
         $categories = $this->category->all();
