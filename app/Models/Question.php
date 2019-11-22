@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Controllers\User\QuestionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 
 class Question extends Model
 {
     use SoftDeletes;
+
+    const PER_PAGE = 10;
 
     protected $fillable = [
         'user_id',
@@ -49,7 +50,7 @@ class Question extends Model
             return $this->with(['user', 'tagCategory', 'comments'])
                 ->GetSameSearchWord(Arr::get($input, 'search_word'))
                 ->GetSameSearchCategory(Arr::get($input, 'tag_category_id'))
-                ->paginate(QuestionController::PER_PAGE); 
+                ->paginate(self::PER_PAGE); 
     }
 
     /**
@@ -78,7 +79,7 @@ class Question extends Model
     public function authUserQuestions()
     {
         return $this->with(['user','tagCategory','comments'])->where('user_id', Auth::id())
-            ->paginate(QuestionController::PER_PAGE);
+            ->paginate(self::PER_PAGE);
     }
 }
 

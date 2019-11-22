@@ -18,8 +18,6 @@ class QuestionController extends Controller
     protected $comment;
     protected $category;
 
-    const PER_PAGE = 10;
-
     public function __construct(Question $question, TagCategory $tagCategory, Comment $comment)
     {
         $this->middleware('auth');
