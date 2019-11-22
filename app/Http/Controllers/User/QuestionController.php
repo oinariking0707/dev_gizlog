@@ -19,12 +19,12 @@ class QuestionController extends Controller
 
     const PER_PAGE = 10;
 
-    public function __construct(Question $question, TagCategory $tagcategory, Comment $comment)
+    public function __construct(Question $question, TagCategory $tagCategory, Comment $comment)
     {
         $this->middleware('auth');
         $this->question = $question;
         $this->comment = $comment;
-        $this->category = $tagcategory;
+        $this->category = $tagCategory;
     }
     /**
      * 一覧画面表示

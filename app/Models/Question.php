@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Controllers\User\QuestionController;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Arr;
 
 class Question extends Model
@@ -48,15 +47,15 @@ class Question extends Model
     public function getQuestions($input)
     {
             return $this->with(['user', 'tagCategory', 'comments'])
-                ->getSameSearchWord(Arr::get($input, 'search_word'))
-                ->getSameSearchCategory(Arr::get($input, 'tag_category_id'))
+                ->GetSameSearchWord(Arr::get($input, 'search_word'))
+                ->GetSameSearchCategory(Arr::get($input, 'tag_category_id'))
                 ->paginate(QuestionController::PER_PAGE); 
     }
 
     /**
      * ワード絞り込み
      */
-    public function scopegetSameSearchWord($query, $searchword)
+    public function scopeGetSameSearchWord($query, $searchword)
     {
         if (isset($searchword)) {
             return $query->where('title', 'like', $searchword. '%');
@@ -66,7 +65,7 @@ class Question extends Model
     /**
     *カテゴリ絞り込み
      */
-    public function scopegetSameSearchCategory($query, $category)
+    public function scopeGetSameSearchCategory($query, $category)
     {
         if (isset($category)) {
             return $query->where('tag_category_id', $category);
