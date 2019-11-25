@@ -57,7 +57,7 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionsRequest $request)
     {
         $input = $request->all();
         $input['user_id'] =  Auth::id();
@@ -97,7 +97,7 @@ class QuestionController extends Controller
      * @param  int  $Id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionsRequest $request, $id)
     {
         $input = $request->all();
         $input['user_id'] = Auth::id();

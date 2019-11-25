@@ -50,7 +50,7 @@ class Question extends Model
             return $this->with(['user', 'tagCategory', 'comments'])
                 ->GetSameSearchWord(Arr::get($input, 'search_word'))
                 ->GetSameSearchCategory(Arr::get($input, 'tag_category_id'))
-                ->paginate(self::PER_PAGE); 
+                ->paginate(self::PER_PAGE);
     }
 
     /**
